@@ -53,7 +53,7 @@ module.exports = function(controller) {
 		
 		// Post request
 		request({
-			url: "yJuV8tF7Lme2KBjV304w:pwd@https://glenndavisgroup.freshdesk.com/api/v2/tickets",
+			url: "https://yJuV8tF7Lme2KBjV304w:pwd@glenndavisgroup.freshdesk.com/api/v2/tickets",
 			method: "POST",
 			json: requestData,
 		
