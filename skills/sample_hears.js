@@ -33,6 +33,44 @@ module.exports = function(controller) {
             bot.reply(message, 'Why hello <@' + message.user + '>');
     });
 
+    
+    controller.hears(['^create FD ticket'], 'direct_message,direct_mention', function(bot, message) {
+
+		// create http request client
+		var request = require("request")
+		
+		// JSON to be passed to Freshdesk
+		var requestData = {
+			 "description": "This is the longer ticket description...", 
+			 "subject": "TESTING API ticket creation...", 
+			 "email": "jridpath@gdg.agency", 
+			 "priority": 4, 
+			 "status": 2, 
+			 "type": "FileMaker", 
+			 "responder_id" : 6000203974, 
+			 "custom_fields" : { "urgent" : true, "gdg_source" : "Slack" } 
+		}
+		
+		// Post request
+		request({
+			url: "https://glenndavisgroup.freshdesk.com/api/v2/tickets",
+			method: "POST",
+			json: requestData,
+		
+		}, function (error, response, body) {
+			if (!error && response.statusCode === 200) {
+				console.log(body)
+			}
+			else {
+		
+				console.log("error: " + error)
+				console.log("response.statusCode: " + response.statusCode)
+				console.log("response.statusText: " + response.statusText)
+			}
+		})
+    });
+    
+    
     controller.hears(['^uptime','^debug'], 'direct_message,direct_mention', function(bot, message) {
 
         bot.createConversation(message, function(err, convo) {
