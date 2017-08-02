@@ -29,15 +29,14 @@ module.exports = function(controller) {
 
 
     controller.hears(['^hi there','^how are you'], 'direct_message,direct_mention', function(bot, message) {
-
-            bot.reply(message, 'Why hello <@' + message.user + '>');
+        bot.reply(message, 'Why hello <@' + message.user + '>');
     });
 
     
     controller.hears(['^create FD ticket'], 'direct_message,direct_mention', function(bot, message) {
 
 		// create http request client
-		var request = require("request")
+		var request = require("request");
 		
 		// JSON to be passed to Freshdesk
 		var requestData = {
@@ -49,7 +48,7 @@ module.exports = function(controller) {
 			 "type": "FileMaker", 
 			 "responder_id" : 6000203974, 
 			 "custom_fields" : { "urgent" : true, "gdg_source" : "Slack" } 
-		}
+		};
 		
 		// Post request
 		request({
@@ -59,15 +58,14 @@ module.exports = function(controller) {
 		
 		}, function (error, response, body) {
 			if (!error && response.statusCode === 201) {
-				console.log(body)
+				console.log(body);
 			}
 			else {
-		
-				console.log("error: " + error)
-				console.log("response.statusCode: " + response.statusCode)
-				console.log("response.statusText: " + response.statusText)
+				console.log("error: " + error);
+				console.log("response.statusCode: " + response.statusCode);
+				console.log("response.statusText: " + response.statusText);
 			}
-		})
+		});
     });
     
     
